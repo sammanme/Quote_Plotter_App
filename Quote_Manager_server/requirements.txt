@@ -1,0 +1,17 @@
+venv
+sqlite3
+pydantic
+pandas
+numpy
+matplotlib
+seaborn
+logging
+pathlib
+fastapi
+typing
+uvicorn
+sqlalchemy
+pytest
+httpx
+streamlit
+python-multipart

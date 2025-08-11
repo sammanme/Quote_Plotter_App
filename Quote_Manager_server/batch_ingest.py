@@ -1,0 +1,16 @@
+import logging
+from pathlib import Path
+from quote_service import QuoteService
+from quote_db import QuoteDatabase
+
+logging.basicConfig(level=logging.INFO)
+
+def main():
+    folder_path = Path("archives/")  # or whatever your folder is
+    db = QuoteDatabase("quotes.db")
+    service = QuoteService(db)
+
+    service.ingest_archives_from_folder(folder_path)
+
+if __name__ == "__main__":
+    main()

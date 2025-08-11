@@ -1,0 +1,57 @@
+/* styles.css */
+.select-style {
+  margin: 0 10px 10px 0;
+  padding: 6px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  min-width: 150px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.select-style:hover {
+  background-color: #cce4ff;
+  border-color: #3399ff;
+}
+
+.table-style {
+  font-size: 12px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-style thead tr {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.table-style thead th {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.table-style tbody td {
+  text-align: center;
+  padding: 8px;
+}
+
+.table-style tbody tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.animated-header {
+  animation: fadeInDown 1.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
