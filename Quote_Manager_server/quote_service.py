@@ -127,7 +127,7 @@ class QuoteService:
 
         result = []
 
-        # Process df_a (Tradeview/XAUUSD)
+        # Process df_a 
         if not df_a.empty:
             df_a = df_a.dropna(subset=['timestamp'])  # Only drop invalid timestamps
             if df_a.empty:
@@ -146,7 +146,7 @@ class QuoteService:
                 ]
                 result.extend(result_a)
 
-        # Process df_b (Zeal Capital/XAUUSDe)
+        # Process df_b 
         if not df_b.empty:
             df_b = df_b.dropna(subset=['timestamp'])  # Only drop invalid timestamps
             if df_b.empty:
@@ -170,7 +170,7 @@ class QuoteService:
                   f"broker_b={broker_b}, symbol_b={symbol_b}")
             return []
 
-        # Limit the total number of records
+        # Limit the total number of records, increase if need be
         return result[:limit]
         
     

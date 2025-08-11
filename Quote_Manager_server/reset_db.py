@@ -41,7 +41,7 @@ try:
     """)
 
     conn.commit()
-    logging.info(f"✅ Fresh database created: {DB_PATH}")
+    logging.info(f"Fresh database created: {DB_PATH}")
 except Exception as e:
     logging.error(f"Error resetting database: {e}", exc_info=True)
 finally:

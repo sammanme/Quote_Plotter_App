@@ -24,7 +24,7 @@ const ChartComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
   const chartRef = useRef(null);
   const zoomRangeRef = useRef(null);
 
-  // Make zoomKey stable so it doesn't trigger useEffect unnecessarily
+  // zoomKey 
   const zoomKey = useMemo(
     () => `${brokerA}_${symbolA}_${brokerB}_${symbolB}_zoom`,
     [brokerA, symbolA, brokerB, symbolB]
@@ -46,10 +46,10 @@ const ChartComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
           return;
         }
 
-        // Sort data by timestamp
+        // Sorts data by timestamp
         data.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 
-        // Get min and max timestamps
+        // Get min and max timestamps for common timestamp index
         const minTimestamp = new Date(data[0].timestamp).getTime();
         const maxTimestamp = new Date(data[data.length - 1].timestamp).getTime();
 
@@ -103,7 +103,7 @@ const ChartComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
 
         const timestampsA = df[keyA]?.timestamps || [];
         const timestampsB = df[keyB]?.timestamps || [];
-
+        // Get interpolated ask/bid arrays on common timeline
         const askA = linearInterpolate(timestampsA, df[keyA]?.ask || [], commonTimestamps);
         const bidA = linearInterpolate(timestampsA, df[keyA]?.bid || [], commonTimestamps);
         const askB = linearInterpolate(timestampsB, df[keyB]?.ask || [], commonTimestamps);
@@ -139,11 +139,10 @@ const ChartComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
     };
 
     fetchData(); // Initial fetch
-    const intervalId = setInterval(fetchData, 600000); // Poll every 10 minutes
+    const intervalId = setInterval(fetchData, 60000); // Poll data every 1 minute
 
     return () => {
       clearInterval(intervalId); // Cleanup interval
-      
     };
   }, [brokerA, symbolA, brokerB, symbolB, timeRange, spreadPoints, view]);
 
@@ -161,7 +160,7 @@ const ChartComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
     console.log("Zoom range saved:", { min, max });
   };
 
-  // Reset zoom
+  // Reset zoom not in use yet
   const handleResetZoom = () => {
     const chart = chartRef.current;
     if (chart) {
@@ -197,7 +196,7 @@ const ChartComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
       chart.options.scales.x.max = lastTime;
       chart.update();
     }
-  }, [chartData, zoomKey]); // ✅ zoomKey now stable, ESLint happy
+  }, [chartData, zoomKey]); 
 
   const options = {
     responsive: true,
@@ -243,11 +242,11 @@ const ChartComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
       }
       } },
     },
-    height: 400, // Fixed height for better scrolling
+    height: 500, // Fixed height for better scrolling
   };
 
   return (
-    <div style={{ position: 'relative', height: '400px', overflow: 'hidden' }}>
+    <div style={{ position: 'relative', height: '500px', overflow: 'hidden' }}>
       <div>
         <label>Toggle View: </label>
         <select className="select-style"  value={view} onChange={(e) => setView(e.target.value)}>

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes import router as quote_router
-# from  api.contracts.quote_contract import FetchBrokersResponse
+
 
 app = FastAPI(
     title="Quote Management API",
@@ -12,7 +12,7 @@ app = FastAPI(
 # Configure CORS
 origins = [
     "http://localhost:3000",  # Allow your React app
-    "http://localhost:3000",  # Duplicate for safety during development
+    "http://localhost:3000",  
 ]
 
 app.add_middleware(
@@ -23,14 +23,14 @@ app.add_middleware(
     allow_headers=["*"],  # Allow all headers
 )
 
-@app.get("/")
-def read_root():
-    return {"message": "Quote Management API is running."}
+# @app.get("/")
+# def read_root():
+#     return {"message": "Quote Management API is running."}
 
 
 
 
-# Include the router for quote management
+# router for quote management
 app.include_router(quote_router, prefix="/api/quotes")
 
 if __name__ == "__main__":

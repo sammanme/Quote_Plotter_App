@@ -6,7 +6,10 @@ from quote_db import QuoteDatabase
 logging.basicConfig(level=logging.INFO)
 
 def main():
-    folder_path = Path("archives/")  # or whatever your folder is
+    folder_path = Path("archives/")  # or whatever your folder is, ensure it exists
+    if not folder_path.exists() or not folder_path.is_dir():
+        logging.error(f"Folder {folder_path} does not exist or is not a directory: {folder_path}.")
+        return
     db = QuoteDatabase("quotes.db")
     service = QuoteService(db)
 

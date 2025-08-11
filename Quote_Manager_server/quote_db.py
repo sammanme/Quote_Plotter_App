@@ -125,23 +125,6 @@ class QuoteDatabase:
         cursor = self.conn.execute("SELECT DISTINCT broker FROM sessions")
         return [row[0] for row in cursor.fetchall()]
     
-    # # @app.get("/api/quotes/brokers")
-    # def get_brokers_and_symbols():
-    #     """Return all brokers and their symbols in the database."""
-    #     cursor = self.conn.execute("SELECT DISTINCT broker, symbol FROM sessions")
-
-    #     # Pull distinct brokers and symbols from the sessions table
-    #     rows = cursor.fetchall()
-    #     cursor.close()
-
-    #     # Build dictionary format: { broker: [symbols...] }
-    #     brokers = {}
-    #     for broker, symbol in rows:
-    #         if broker not in brokers:
-    #             brokers[broker] = []
-    #         brokers[broker].append(symbol)
-
-    #     return {"brokers": brokers}
 
     def get_symbols_by_broker(self, broker: str) -> List[str]:
         cursor = self.conn.execute("""

@@ -7,7 +7,7 @@ from quote_contracts import (
     ListSymbolsRequest,
     ListDatesRequest,
     ListSessionRequest,
-    IngestRequest,
+    IngestRequest
 )
 import argparse
 from pathlib import Path
@@ -30,7 +30,9 @@ def main():
     db = QuoteDatabase("quotes.db")
     service = QuoteService(db)
 
-    # 1. Ingest archive
+    # only for CLI testing, not for production use
+
+    # 1. Ingest archive, uncomment this when needed
     # if args.batch_folder:
     #     service.ingest_archives_from_folder(Path(args.batch_folder))
     # else:

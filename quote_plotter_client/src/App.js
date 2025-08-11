@@ -11,14 +11,15 @@ function App() {
   const [timeRange, setTimeRange] = useState("all");
   const [spreadPoints, setSpreadPoints] = useState(10);
 
-  const [brokerSymbols, setBrokerSymbols] = useState({}); // full mapping { broker: [symbols] }
+  // full mapping { broker: [symbols] }
+  const [brokerSymbols, setBrokerSymbols] = useState({}); 
   const [brokers, setBrokers] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/quotes/brokers&symbols") // your backend endpoint
+    fetch("http://localhost:8000/api/quotes/brokers&symbols") // backend endpoint
       .then((res) => res.json())
       .then((data) => {
-        // API should return: { brokers: { "Tradeview": ["BTCUSD", "ETHUSD"], "Zeal Capital": ["XAUUSD"] } }
+        // API return: { brokers: { "Tradeview": ["symbol"], "Zeal Capital": ["symbol"] } }
         const symbolsData = data.brokers || {};
         setBrokerSymbols(symbolsData);
         setBrokers(Object.keys(symbolsData));
@@ -26,7 +27,7 @@ function App() {
       .catch((err) => console.error("Error fetching broker/symbol data:", err));
   }, []);
 
-  // Reset symbols when broker changes
+  // Resets symbols when broker changes
   useEffect(() => {
     setSymbolA("");
   }, [brokerA]);
@@ -53,6 +54,7 @@ function App() {
         </select>
       </div>
       <div>
+        {/* Broker B + Symbol B */}
         <label>Broker B: </label>
         <select className="select-style"  value={brokerB} onChange={(e) => setBrokerB(e.target.value)}>
           <option value="">-- Select Broker B --</option>
@@ -64,6 +66,7 @@ function App() {
           {(brokerSymbols[brokerB] || []).map((s => <option key={s} value={s}>{s}</option>))}
         </select>
       </div>
+      
       {/* Time Range & Spread Points */}
       <div>
         <label>Time Range: </label>

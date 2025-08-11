@@ -87,6 +87,7 @@ const TableComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
           const bid_a = bidA[i];
           const ask_b = askB[i];
           const bid_b = bidB[i];
+
           // Calculate spread as ask_a - bid_b if both present
           const spread = (ask_a != null && bid_b != null) ? ask_a - bid_b : null;
           return {
@@ -102,7 +103,7 @@ const TableComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
         // Sort descending (newest first) and slice to spreadPoints
         combined = combined.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, spreadPoints);
 
-        // Format numbers to fixed decimals or show 'N/A'
+        // Format numbers to fixed (5) decimals or show 'N/A'
         const formatted = combined.map(row => ({
           timestamp: row.timestamp,
           ask_a: row.ask_a != null ? row.ask_a.toFixed(5) : 'N/A',
@@ -119,7 +120,7 @@ const TableComponent = ({ brokerA, symbolA, brokerB, symbolB, timeRange, spreadP
     };
 
     fetchData();
-    const intervalId = setInterval(fetchData, 600000); // 10 minutes
+    const intervalId = setInterval(fetchData, 60000); // refreshes every 1 minute
 
     return () => clearInterval(intervalId);
   }, [brokerA, symbolA, brokerB, symbolB, timeRange, spreadPoints]);
